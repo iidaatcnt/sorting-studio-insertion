@@ -185,24 +185,24 @@ export default function InsertionSortStudio() {
   const step = steps[currentStep] || { array: [], indices: [], type: 'init', description: '' };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-indigo-500/30">
+    <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans selection:bg-indigo-500/30">
       {/* Header */}
-      <header className="border-b border-white/5 bg-slate-900/50 backdrop-blur-md sticky top-0 z-50">
+      <header className="border-b border-slate-200 bg-white/50 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-500/20">
-              <Zap className="text-slate-950 w-5 h-5 fill-current" />
+            <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-600/20">
+              <Zap className="text-white w-5 h-5 fill-current" />
             </div>
-            <h1 className="font-black italic tracking-tighter text-xl uppercase">Insertion_Sort_Studio</h1>
+            <h1 className="font-black italic tracking-tighter text-xl uppercase tracking-widest text-indigo-600">Insertion_Sort_Studio</h1>
           </div>
           <div className="flex items-center gap-6">
-            <div className="hidden md:flex items-center gap-2 text-[10px] mono uppercase text-slate-500">
+            <div className="hidden md:flex items-center gap-2 text-[10px] mono uppercase text-slate-400">
               <span>Status:</span>
-              <span className={isPlaying ? 'text-emerald-400' : 'text-amber-400'}>
-                {isPlaying ? 'Computing' : 'Idle'}
+              <span className={isPlaying ? 'text-emerald-600' : 'text-amber-600'}>
+                {isPlaying ? '実行中' : '停止中'}
               </span>
             </div>
-            <a href="https://github.com/iidaatcnt/sorting-studio-insertion" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-white transition-colors">
+            <a href="https://github.com/iidaatcnt/sorting-studio-insertion" target="_blank" rel="noreferrer" className="text-slate-400 hover:text-slate-900 transition-colors">
               <Github size={20} />
             </a>
           </div>
@@ -213,10 +213,10 @@ export default function InsertionSortStudio() {
         {/* Left: Visualization & Controls */}
         <div className="lg:col-span-8 flex flex-col gap-8">
 
-          <div className="relative aspect-video lg:aspect-square max-h-[500px] bg-slate-900/50 rounded-3xl border border-white/5 p-12 flex items-end justify-center gap-2 overflow-hidden group">
-            <div className="absolute top-6 left-6 flex items-center gap-2 mono text-[10px] text-slate-500 uppercase">
-              <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
-              Insertion Sort Interactive Lab
+          <div className="relative aspect-video lg:aspect-square max-h-[500px] bg-white rounded-3xl border border-slate-200 p-12 flex items-end justify-center gap-2 overflow-hidden group shadow-xl">
+            <div className="absolute top-6 left-6 flex items-center gap-2 mono text-[10px] text-slate-400 uppercase font-bold">
+              <div className="w-1.5 h-1.5 rounded-full bg-indigo-600 animate-pulse" />
+              挿入ソート・シミュレーター
             </div>
 
             <AnimatePresence mode="popLayout" initial={false}>
@@ -224,25 +224,21 @@ export default function InsertionSortStudio() {
                 const isSelected = step.indices.includes(idx);
                 const isKey = step.keyIdx === idx && (step.type === 'pick' || step.type === 'compare');
 
-                let colorClass = "bg-slate-700/50";
+                let colorClass = "bg-slate-100";
                 let yOffset = 0;
 
                 if (isSelected) {
-                  if (step.type === 'compare') colorClass = "bg-cyan-400 shadow-[0_0_20px_rgba(34,211,238,0.3)]";
+                  if (step.type === 'compare') colorClass = "bg-indigo-400 shadow-[0_0_20px_rgba(129,140,248,0.3)]";
                   if (step.type === 'shift') colorClass = "bg-amber-400 shadow-[0_0_20px_rgba(251,191,36,0.3)]";
-                  if (step.type === 'insert') colorClass = "bg-indigo-400 shadow-[0_0_25px_rgba(129,140,248,0.5)]";
-                  if (step.type === 'sorted') colorClass = "bg-emerald-400 shadow-[0_0_20px_rgba(52,211,153,0.3)]";
-                  if (step.type === 'complete') colorClass = "bg-indigo-500 shadow-[0_0_30px_rgba(99,102,241,0.5)]";
+                  if (step.type === 'insert') colorClass = "bg-indigo-600 shadow-[0_0_25px_rgba(79,70,229,0.5)]";
+                  if (step.type === 'sorted') colorClass = "bg-emerald-500 shadow-[0_0_20px_rgba(16,185,129,0.3)]";
+                  if (step.type === 'complete') colorClass = "bg-indigo-600 shadow-[0_0_30px_rgba(79,70,229,0.5)]";
                 }
 
                 if (step.type === 'pick' && isKey) {
                   colorClass = "bg-indigo-400 shadow-[0_0_25px_rgba(129,140,248,0.5)]";
                   yOffset = -100; // Lift up for selection
                 }
-
-                // If it's the currently floating key (not yet inserted)
-                // This visualization is simplified: it shows the current array state
-                // but we color the "space" or "picked" element.
 
                 return (
                   <motion.div
@@ -252,7 +248,7 @@ export default function InsertionSortStudio() {
                     style={{ height: `${val}%`, y: yOffset }}
                     className={`flex-1 min-w-[30px] rounded-t-lg relative ${colorClass} transition-colors duration-200`}
                   >
-                    <div className={`absolute -top-8 left-1/2 -translate-x-1/2 mono text-xs font-bold ${isSelected || isKey ? 'text-white' : 'text-slate-600'}`}>
+                    <div className={`absolute -top-8 left-1/2 -translate-x-1/2 text-[10px] font-bold ${isSelected || isKey ? 'text-indigo-600' : 'text-slate-400'}`}>
                       {val}
                     </div>
                     {isSelected && step.type === 'insert' && (
@@ -264,76 +260,76 @@ export default function InsertionSortStudio() {
                 );
               })}
             </AnimatePresence>
-            <div className="absolute inset-0 pointer-events-none opacity-5 bg-[linear-gradient(rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[length:40px_40px]" />
+            <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[linear-gradient(rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.1)_1px,transparent_1px)] bg-[length:40px_40px]" />
           </div>
 
-          <div className="p-8 bg-slate-900/80 rounded-3xl border border-white/10 flex flex-col gap-8 shadow-2xl">
+          <div className="p-8 bg-white rounded-3xl border border-slate-200 flex flex-col gap-8 shadow-lg">
             <div className="flex flex-col md:flex-row items-center gap-8">
               <div className="flex items-center gap-2">
-                <button onClick={stepBackward} className="p-3 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors"><StepBack size={20} /></button>
-                <button onClick={() => setIsPlaying(!isPlaying)} className="w-16 h-16 bg-white text-slate-950 rounded-2xl flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all active:scale-95 shadow-xl shadow-indigo-500/10">
+                <button onClick={stepBackward} className="p-3 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 transition-colors"><StepBack size={20} /></button>
+                <button onClick={() => setIsPlaying(!isPlaying)} className="w-16 h-16 bg-indigo-600 text-white rounded-2xl flex items-center justify-center hover:bg-indigo-500 transition-all active:scale-95 shadow-xl shadow-indigo-600/20">
                   {isPlaying ? <Pause fill="currentColor" /> : <Play fill="currentColor" className="ml-1" />}
                 </button>
-                <button onClick={stepForward} className="p-3 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors"><StepForward size={20} /></button>
-                <button onClick={reset} className="p-3 bg-slate-800 rounded-xl hover:bg-slate-700 transition-colors ml-2"><RotateCcw size={20} /></button>
+                <button onClick={stepForward} className="p-3 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 transition-colors"><StepForward size={20} /></button>
+                <button onClick={reset} className="p-3 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 transition-colors ml-2"><RotateCcw size={20} /></button>
               </div>
 
               <div className="flex-1 w-full">
-                <div className="flex items-center justify-between mono text-[10px] text-slate-500 uppercase tracking-widest mb-2">
-                  <span>Playback Speed</span>
-                  <span className="text-indigo-400">{Math.round((speed / 980) * 100)}%</span>
+                <div className="flex items-center justify-between mono text-[10px] text-slate-400 uppercase tracking-widest mb-2 font-bold">
+                  <span>再生スピード</span>
+                  <span className="text-indigo-600">{Math.round((speed / 980) * 100)}%</span>
                 </div>
-                <input type="range" min="20" max="980" value={speed} onChange={(e) => setSpeed(parseInt(e.target.value))} className="w-full appearance-none bg-slate-800 h-1.5 rounded-full accent-indigo-500 cursor-pointer" />
+                <input type="range" min="20" max="980" value={speed} onChange={(e) => setSpeed(parseInt(e.target.value))} className="w-full appearance-none bg-slate-100 h-1.5 rounded-full accent-indigo-600 cursor-pointer" />
               </div>
             </div>
 
-            <div className="p-5 bg-slate-950/50 rounded-2xl border border-white/5 flex gap-4">
-              <Info size={18} className="text-indigo-500 shrink-0 mt-0.5" />
-              <p className="text-sm text-slate-300 leading-relaxed italic">{step.description}</p>
+            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 flex gap-4">
+              <Info size={18} className="text-slate-400 shrink-0 mt-0.5" />
+              <p className="text-sm text-slate-600 leading-relaxed font-medium">{step.description}</p>
             </div>
           </div>
         </div>
 
         {/* Right: Code & Theory */}
         <div className="lg:col-span-4 flex flex-col gap-8">
-          <div className="p-8 bg-zinc-900 border border-white/5 rounded-3xl shadow-xl">
+          <div className="p-8 bg-white border border-slate-200 rounded-3xl shadow-lg">
             <div className="flex items-center gap-3 mb-6">
-              <Lightbulb className="text-amber-400 w-5 h-5" />
-              <h2 className="font-bold text-[10px] uppercase tracking-widest">About Algorithm</h2>
+              <Lightbulb className="text-amber-500 w-5 h-5" />
+              <h2 className="font-bold text-xs uppercase tracking-widest text-slate-400">学習ガイド</h2>
             </div>
-            <div className="p-5 bg-black/40 rounded-2xl border border-white/5 mb-6">
-              <h3 className="text-indigo-400 font-bold mb-2 text-sm">挿入ソート</h3>
-              <p className="text-[11px] text-slate-400 leading-relaxed">
+            <div className="p-5 bg-slate-50 rounded-2xl border border-slate-100 mb-6">
+              <h3 className="text-indigo-600 font-bold mb-2 text-sm">挿入ソート</h3>
+              <p className="text-xs text-slate-500 leading-relaxed font-medium">
                 整列済みの部分に対して、新しい要素を適切な位置に「挿入」していく方法です。
                 手持ちのトランプを1枚ずつ正しい順序に差し込む動作と同じ理屈です。
               </p>
             </div>
             <div className="grid grid-cols-2 gap-3 mono text-[10px] uppercase">
-              <div className="p-3 bg-slate-800/40 rounded-xl">
-                <span className="text-slate-500 block mb-1 tracking-tighter">Complexity</span>
-                <span className="text-white">O(N²)</span>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-400 block mb-1 font-bold">Complexity</span>
+                <span className="text-indigo-600 font-black">O(N²)</span>
               </div>
-              <div className="p-3 bg-slate-800/40 rounded-xl">
-                <span className="text-slate-500 block mb-1 tracking-tighter">Stability</span>
-                <span className="text-white">Stable</span>
+              <div className="p-3 bg-slate-50 rounded-xl border border-slate-100">
+                <span className="text-slate-400 block mb-1 font-bold">Stability</span>
+                <span className="text-slate-700 font-black">Stable</span>
               </div>
             </div>
           </div>
 
-          <div className="p-8 bg-black border border-white/5 rounded-3xl flex-1 flex flex-col min-h-[400px]">
+          <div className="p-8 bg-[#0f172a] border border-slate-800 rounded-3xl shadow-2xl flex-1 flex flex-col min-h-[400px]">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <Code2 className="text-slate-400 w-5 h-5" />
-                <h2 className="font-bold text-[10px] uppercase tracking-widest">Python 3 Implementation</h2>
+                <h2 className="font-bold text-xs uppercase tracking-widest text-slate-500">Python 実装例</h2>
               </div>
-              <div className="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse" />
+              <div className="w-1.5 h-1.5 rounded-full bg-indigo-500/50 shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
             </div>
 
-            <div className="flex-1 bg-zinc-950/50 p-6 rounded-2xl mono text-[11px] leading-loose overflow-auto border border-white/5">
+            <div className="flex-1 bg-black/20 p-6 rounded-2xl mono text-[11px] leading-loose overflow-auto border border-slate-800 scrollbar-hide text-slate-300">
               {CODE_PYTHON.map((line, i) => (
                 <div
                   key={i}
-                  className={`flex gap-6 transition-all duration-300 ${step.codeLine === i ? 'text-indigo-400 bg-indigo-400/10 -mx-6 px-6 border-l-2 border-indigo-400' : 'text-slate-700'}`}
+                  className={`flex gap-6 transition-all duration-300 ${step.codeLine === i ? 'text-indigo-400 bg-indigo-500/10 -mx-6 px-6 border-l-2 border-indigo-400' : 'text-slate-600'}`}
                 >
                   <span className="text-slate-800 tabular-nums w-4 select-none">{i + 1}</span>
                   <pre className="whitespace-pre">{line}</pre>
@@ -341,14 +337,14 @@ export default function InsertionSortStudio() {
               ))}
             </div>
             <div className="mt-4 text-center">
-              <span className="text-[10px] mono text-slate-500 uppercase tracking-widest whitespace-nowrap overflow-hidden text-ellipsis">Informatics I // Insertion Sort</span>
+              <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest whitespace-nowrap overflow-hidden text-ellipsis">Insertion Sort // Core Logic</span>
             </div>
           </div>
         </div>
       </main>
 
-      <footer className="mt-20 border-t border-white/5 py-12 px-6 text-center">
-        <p className="text-[10px] mono text-slate-700 uppercase tracking-[0.4em]">Interactive_Learning_Sandbox // Studio_Series</p>
+      <footer className="mt-20 border-t border-slate-200 py-12 px-6 text-center">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.4em]">Fundamental Wisdom for the AI Era // Algorithm Literacy // しろいプログラミング教室</p>
       </footer>
     </div>
   );
