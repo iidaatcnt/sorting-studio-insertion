@@ -13,6 +13,7 @@ import {
   Code2,
   Zap,
   Lightbulb,
+  ArrowRightLeft,
   ArrowDown
 } from 'lucide-react';
 
@@ -191,9 +192,9 @@ export default function InsertionSortStudio() {
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center shadow-lg shadow-indigo-600/20">
-              <Zap className="text-white w-5 h-5 fill-current" />
+              <ArrowRightLeft className="text-white w-5 h-5" />
             </div>
-            <h1 className="font-black italic tracking-tighter text-xl uppercase tracking-widest text-indigo-600">Insertion_Sort_Studio</h1>
+            <h1 className="font-black italic tracking-tighter text-xl uppercase tracking-widest text-indigo-600">挿入ソート (Insertion Sort)</h1>
           </div>
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center gap-2 text-[10px] mono uppercase text-slate-400">
